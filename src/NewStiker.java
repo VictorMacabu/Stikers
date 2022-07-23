@@ -3,18 +3,21 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.nio.Buffer;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
 public class NewStiker {
 
-    public void cria() throws Exception {
+    public void cria(InputStream inputImage, String nomeArquivo) throws Exception {
 
         // leitura da imagem
-        BufferedImage imagemOriginal = ImageIO.read(new File("entrada/filme-maior.jpg"));
-
+        // BufferedImage imagemOriginal = ImageIO.read(new
+        // File("entrada/filme-maior.jpg"));
+        // InputStream inputImage = new URL(
+        // "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@.jpg")
+        // .openStream();
+        BufferedImage imagemOriginal = ImageIO.read(inputImage);
         // cria nova imagem em memória com transparênciae com tamanho novo
         int largura = imagemOriginal.getWidth();
         int altura = imagemOriginal.getHeight();
@@ -38,12 +41,7 @@ public class NewStiker {
         if (!new File("saida").exists()) {
             new File("saida").mkdir();
         }
-        ImageIO.write(newImage, "png", new File("saida/figurinha.png"));
+        ImageIO.write(newImage, "png", new File("saida/" + nomeArquivo));
 
-    }
-
-    public static void main(String[] args) throws Exception {
-        var geradora = new NewStiker();
-        geradora.cria();
     }
 }
